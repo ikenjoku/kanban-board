@@ -1,1 +1,1 @@
-export { useFocus } from './useFocus'
+export { findItemIndexById } from './findItemIndexById'
