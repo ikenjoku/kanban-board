@@ -6,20 +6,20 @@ import { AddNewItem } from './AddNewItem'
 import { useAppState } from './context'
 
 function App() {
-  const { state } = useAppState()
+  const { state, dispatch } = useAppState()
   return (
     <MainContainer>
       { state.lists.map((list, i) => (
-        <Column title={list.text} index={i} key={list.id}>
+        <Column title={list.text} index={i} key={list.id} id={list.id}>
           <Card text="Generate app scaffold" />
         </Column>
       )) }
       <AddNewItem
         toggleButtonText='+ Add another list'
-        onAdd={text => console.log(text)}
+        onAdd={text => dispatch({type: 'ADD_LIST', payload:text}) }
       />
     </MainContainer>
-  );
+  )
 }
 
 export default App;

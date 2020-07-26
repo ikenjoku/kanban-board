@@ -7,10 +7,11 @@ import { useAppState } from './context'
 interface ColumnProps {
   title: string
   index: number
+  id: string
 }
 
-export function Column ({ title, index }: React.PropsWithChildren<ColumnProps>) {
-  const { state } = useAppState()
+export function Column ({ title, index, id }: React.PropsWithChildren<ColumnProps>) {
+  const { state, dispatch } = useAppState()
   return (
     <ColumnContainer>
       <ColumnTitle>
@@ -21,7 +22,7 @@ export function Column ({ title, index }: React.PropsWithChildren<ColumnProps>) 
       ))}
     <AddNewItem
       toggleButtonText='+ Add another task'
-      onAdd={console.log}
+      onAdd={text => dispatch({type: 'ADD_TASK', payload: { columnId:id, text }})}
       dark={true}
     />
     </ColumnContainer>
