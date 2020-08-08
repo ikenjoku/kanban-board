@@ -5,7 +5,7 @@ import React, {
 } from 'react'
 import {v4 as uuid} from "uuid"
 import { findItemIndexById, moveItem } from '../utils'
-import { DragItem } from '../DragItem'
+import { DragItem, ColumnDragItem } from '../DragItem'
 
 interface Task {
   id: string
@@ -19,7 +19,8 @@ interface List {
 }
 
 interface AppState {
-  lists: List[]
+  lists: List[],
+  draggedItem: ColumnDragItem | undefined,
 }
 
 const appData: AppState = {
@@ -42,7 +43,8 @@ const appData: AppState = {
       text: "Done",
       tasks: [{ id: "c3", text: "Begin to use static typing" }]
     }
-  ]
+  ],
+  draggedItem: undefined
 }
 
 interface AppStateContextProps {

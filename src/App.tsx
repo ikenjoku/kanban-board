@@ -10,7 +10,7 @@ function App() {
   return (
     <MainContainer>
       { state.lists.map((list, i) => (
-        <Column title={list.text} index={i} key={list.id} id={list.id}>
+        <Column text={list.text} index={i} key={list.id} id={list.id}>
           <Card text="Generate app scaffold" />
         </Column>
       )) }
