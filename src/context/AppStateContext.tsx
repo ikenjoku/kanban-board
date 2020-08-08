@@ -4,7 +4,8 @@ import React, {
   createContext
 } from 'react'
 import {v4 as uuid} from "uuid"
-import { findItemIndexById } from '../utils'
+import { findItemIndexById, moveItem } from '../utils'
+import { DragItem } from '../DragItem'
 
 interface Task {
   id: string
@@ -53,13 +54,24 @@ const AppStateContext = createContext<AppStateContextProps>({} as AppStateContex
 
 type Action =
   | {
-      type: 'ADD_LIST',
+      type: 'ADD_LIST'
       payload: string
     }
   | {
-      type: 'ADD_TASK',
+      type: 'ADD_TASK'
       payload: { text: string; columnId: string }
     }
+  | {
+    type: 'MOVE_LIST'
+    payload: {
+      dragIndex: number
+      hoverIndex: number}
+    }
+  | {
+      type: "SET_DRAGGED_ITEM"
+      payload: DragItem | undefined
+  }
+
 
 const AppStateReducer = (state:AppState, action: Action) => {
   switch(action.type){
@@ -84,6 +96,15 @@ const AppStateReducer = (state:AppState, action: Action) => {
       return {
         ...state
       }
+    }
+    case "MOVE_LIST": {
+      const { dragIndex, hoverIndex } = action.payload
+      state.lists = moveItem(state.lists, dragIndex, hoverIndex)
+      return { ...state }
+    }
+    case "SET_DRAGGED_ITEM": {
+      console.log('being dragged', action.payload)
+      return { ...state, draggedItem: action.payload }
     }
     default:
       return state
